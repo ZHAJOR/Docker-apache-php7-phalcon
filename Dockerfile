@@ -3,7 +3,7 @@ FROM debian:jessie
 MAINTAINER Pierre-Antoine 'ZHAJOR' Tible <antoinetible@gmail.com>
 
 # The Dotdeb repository for Php 7
-RUN apt-get update && apt-get install -y wget git re2c apt-utils \
+RUN apt-get update && apt-get install -y wget git re2c apt-utils apt-transport-https \
     &&  echo 'deb http://packages.dotdeb.org jessie all' > /etc/apt/sources.list.d/dotdeb.list \
     && wget https://www.dotdeb.org/dotdeb.gpg && apt-key add dotdeb.gpg  && rm dotdeb.gpg\
     && apt-get update \
