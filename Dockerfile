@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y wget git re2c apt-utils apt-transport-h
 
 #Phalcon installation
 RUN cd /home \
-    && git clone --depth=1 git://github.com/phalcon/cphalcon.git \
+    && git clone --depth=1 http://github.com/phalcon/cphalcon.git \
     && cd cphalcon/build \
     && ./install \
     && echo 'extension=phalcon.so' > /etc/php/7.0/mods-available/phalcon.ini \
