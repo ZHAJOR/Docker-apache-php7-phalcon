@@ -24,14 +24,20 @@ RUN apt-get update && apt-get install -y wget git re2c apt-utils apt-transport-h
     php7.0-mongodb \
     php7.0-bz2 \
     && apt-get clean
-
 #Phalcon installation
-RUN cd /home \
-    && git clone --depth=1 http://github.com/phalcon/cphalcon.git \
+RUN mkdir /home/phalcon
+WORKDIR /home/phalcon
+RUN git clone --depth=1 http://github.com/phalcon/cphalcon.git \
     && cd cphalcon/build \
     && ./install \
     && echo 'extension=phalcon.so' > /etc/php/7.0/mods-available/phalcon.ini \
-    && echo 'extension=phalcon.so' > /etc/php/7.0/apache2/conf.d/20-phalcon.ini
+    && echo 'extension=phalcon.so' > /etc/php/7.0/apache2/conf.d/50-phalcon.ini \
+    && echo 'extension=phalcon.so' > /etc/php/7.0/cli/conf.d/50-phalcon.ini
+RUN git clone http://github.com/phalcon/phalcon-devtools.git \
+    && cd phalcon-devtools/ \
+    && . /home/phalcon/phalcon-devtools/phalcon.sh \
+    && ln -s /home/phalcon/phalcon-devtools/phalcon.php /usr/local/bin/phalcon \
+    && chmod +x /usr/local/bin/phalcon
 
 
 RUN ln -sf /dev/stdout /var/log/apache2/access.log 
